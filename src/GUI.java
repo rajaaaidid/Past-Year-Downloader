@@ -4,13 +4,18 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyledDocument;
+import org.apache.commons.io.FileUtils;
 
 
 public class GUI extends javax.swing.JFrame {
@@ -21,6 +26,8 @@ public class GUI extends javax.swing.JFrame {
     private Interface inter = new Interface();
     private boolean shift;
     private boolean downloadState;
+    private boolean updatePrompt = false;
+    private String latestVersion = null;
     private StyledDocument consoleWindowDocument;
     
     // Get the size of the screen
@@ -325,27 +332,58 @@ public class GUI extends javax.swing.JFrame {
         String text = "Created by Raja Muhammad Aidid.\n"
         + "This is a rewritten version of 'Past Year Downloader' from Hii Yong Lian.\n"
         + "Credits is given to the original owner of this program. " + "For help, type \"help\" or \"?\".\n"
-        + "https://github.com/HiiYL\n";
+        + "https://github.com/HiiYL. Current Build: "+inter.getBUILD()+"\n";
         inter.printMessage(text, 3);
     }
 
     private void executeCommand(String s) throws BadLocationException {
         String[] splitS = s.split(" ");
-        //if(splitS[0].startsWith("/")){
-            if(splitS[0].equals("override")){
-                subjectCodeTextField.setEditable(true);
-                manuallyDownload.setEnabled(true);
-                inter.printMessage("INFO: Override succesful!...", 2);
-            }else if(splitS[0].equals("build")){
-                inter.printMessage("INFO: Version: "+inter.getBUILD(), 3);
-            }else if(splitS[0].equals("help")||splitS[0].equals("?")){
-                inter.printMessage(
-                "build: Checks the current version of the past year downloader\n"
-                + "update: Updates to the latest version of the past year downloader\n"
-                + "help: Displays the help menu\n", 3);
+        if(splitS[0].equals("override")){
+            subjectCodeTextField.setEditable(true);
+            manuallyDownload.setEnabled(true);
+            inter.printMessage("INFO: Override succesful!...", 2);
+        }else if(splitS[0].equals("build")){
+            inter.printMessage("INFO: Version: "+inter.getBUILD(), 3);
+        }else if(splitS[0].equals("help")||splitS[0].equals("?")){
+            inter.printMessage(
+            "build: Checks the current version of the past year downloader\n"
+            + "update: Updates to the latest version of the past year downloader\n"
+            + "help: Displays the help menu\n", 3);
+        }else if(splitS[0].equals("update")){
+            try {
+                FileUtils.copyURLToFile(new URL("ftp://rajaaidid.ddns.net/Folder/Configuration/version"), new File("version.pyd"));
+                latestVersion = FileUtils.readFileToString(new File("version.pyd"), "UTF-8");
+                new File("version.pyd").delete();
+                if(Integer.parseInt(inter.getBUILD().replace(".", "")) < Integer.parseInt(latestVersion.replace(".", ""))){
+                    inter.printMessage("Current Build: "+inter.getBUILD()+" | Latest Build: "+latestVersion+"\n"
+                            + "Would you like to update to the latest version? Y/N", 1);
+                    updatePrompt = true;
+                }else{
+                    inter.printMessage("There are no updates available.", 1);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                inter.printMessage(ex.toString(), 6);
             }
-            
-        //}
+        }else if(splitS[0].toUpperCase().equals("Y")){
+            if(updatePrompt==true){
+                System.out.println("INFO: Initiating download...");
+                inter.printMessage("INFO: Initiating download...", 7);
+                System.out.println("Downloading... Updates");
+                inter.printMessage("Downloading... Updates", 0);
+                try {
+                    FileUtils.copyURLToFile(new URL("ftp://rajaaidid.ddns.net/Folder/Configuration/Past%20Year%20Downloader.exe"), new File("Past Year Downloader ("+latestVersion+").exe"));
+                } catch (Exception e){
+                    inter.printMessage(e.toString(), 6);
+                }
+                System.out.println("Downloading... Updates Finished");
+                inter.printMessage("Downloading... Updates Finished", 0);
+                inter.printMessage("You may now close the current application and run the new version", 1);
+                updatePrompt = false;
+            }
+        }else if(splitS[0].toUpperCase().equals("N")){
+            updatePrompt = false;
+        }
     }
     
     private void login(){
