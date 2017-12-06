@@ -332,7 +332,7 @@ public class GUI extends javax.swing.JFrame {
         String text = "Created by Raja Muhammad Aidid.\n"
         + "This is a rewritten version of 'Past Year Downloader' from Hii Yong Lian.\n"
         + "Credits is given to the original owner of this program. " + "For help, type \"help\" or \"?\".\n"
-        + "https://github.com/HiiYL. Current Build: "+inter.getBUILD()+"\n";
+        + "https://github.com/rajaaaidid. Current Build: "+inter.getBUILD()+"\n";
         inter.printMessage(text, 3);
     }
 

@@ -11,7 +11,7 @@ import javax.swing.text.StyledDocument;
 
 
 public class Interface {
-    private static final String BUILD = "1.1.2";
+    private static final String BUILD = "1.1.3";
     private static StyledDocument consoleWindowDocument;
     private static List<SimpleAttributeSet> listOfAttributes = new ArrayList<SimpleAttributeSet>();
     private static JTextField subjectCodeTextField;
