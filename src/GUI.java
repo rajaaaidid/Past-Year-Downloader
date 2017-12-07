@@ -344,8 +344,8 @@ public class GUI extends javax.swing.JFrame {
         }else if(splitS[0].equals("build")){
             inter.printMessage("INFO: Version: "+inter.getBUILD(), 3);
         }else if(splitS[0].equals("help")||splitS[0].equals("?")){
-            inter.printMessage(
-            "build: Checks the current version of the past year downloader\n"
+            inter.printMessage("\nType in the following commands:\n"
+            + "build: Checks the current version of the past year downloader\n"
             + "update: Updates to the latest version of the past year downloader\n"
             + "help: Displays the help menu\n", 3);
         }else if(splitS[0].equals("update")){
