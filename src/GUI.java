@@ -371,7 +371,7 @@ public class GUI extends javax.swing.JFrame {
                 System.out.println("Downloading... Updates");
                 inter.printMessage("Downloading... Updates", 0);
                 try {
-                    FileUtils.copyURLToFile(new URL("ftp://rajaaidid.ddns.net/Folder/Configuration/Past%20Year%20Downloader.exe"), new File("Past Year Downloader ("+latestVersion+").exe"));
+                    FileUtils.copyURLToFile(new URL("https://github.com/rajaaaidid/Past-Year-Downloader/blob/master/versioning/pyd_"+latestVersion+".exe?raw=true"), new File("Past Year Downloader ("+latestVersion+").exe"));
                 } catch (Exception e){
                     inter.printMessage(e.toString(), 6);
                 }
