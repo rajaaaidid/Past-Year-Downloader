@@ -350,7 +350,7 @@ public class GUI extends javax.swing.JFrame {
             + "help: Displays the help menu\n", 3);
         }else if(splitS[0].equals("update")){
             try {
-                FileUtils.copyURLToFile(new URL("ftp://rajaaidid.ddns.net/Folder/Configuration/version"), new File("version.pyd"));
+                FileUtils.copyURLToFile(new URL("https://raw.githubusercontent.com/rajaaaidid/Past-Year-Downloader/master/version"), new File("version.pyd"));
                 latestVersion = FileUtils.readFileToString(new File("version.pyd"), "UTF-8");
                 new File("version.pyd").delete();
                 if(Integer.parseInt(inter.getBUILD().replace(".", "")) < Integer.parseInt(latestVersion.replace(".", ""))){
