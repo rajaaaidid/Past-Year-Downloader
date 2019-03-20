@@ -372,12 +372,12 @@ public class GUI extends javax.swing.JFrame {
                 inter.printMessage("Downloading... Updates", 0);
                 try {
                     FileUtils.copyURLToFile(new URL("https://github.com/rajaaaidid/Past-Year-Downloader/blob/master/versioning/pyd_"+latestVersion+".exe?raw=true"), new File("Past Year Downloader ("+latestVersion+").exe"));
+                    System.out.println("Downloading... Updates Finished");
+                    inter.printMessage("Downloading... Updates Finished", 0);
+                    inter.printMessage("You may now close the current application and run the new version", 1);
                 } catch (Exception e){
                     inter.printMessage(e.toString(), 6);
                 }
-                System.out.println("Downloading... Updates Finished");
-                inter.printMessage("Downloading... Updates Finished", 0);
-                inter.printMessage("You may now close the current application and run the new version", 1);
                 updatePrompt = false;
             }
         }else if(splitS[0].toUpperCase().equals("N")){
